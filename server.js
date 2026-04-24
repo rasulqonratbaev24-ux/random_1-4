@@ -1,60 +1,105 @@
-const express = require("express");
-const app = express();
+<!DOCTYPE html>
+<html lang="kaa">
+<head>
+<meta charset="UTF-8">
+<title>Random 1-4</title>
 
-let numbers = [
-  1,1,1,1,1,1,
-  2,2,2,2,2,2,
-  3,3,3,3,3,3,
-  4,4,4,4,4,4
-];
+<style>
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Arial', sans-serif;
+}
 
-numbers.sort(() => Math.random() - 0.5);
+body {
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: linear-gradient(135deg, #667eea, #764ba2);
+  color: white;
+}
 
-// API
-app.get("/get-number", (req, res) => {
-  let num = numbers.pop();
-  if (!num) return res.json({ num: "Tugadi", left: 0 });
+/* Kartochka */
+.container {
+  background: rgba(255,255,255,0.1);
+  backdrop-filter: blur(10px);
+  padding: 40px;
+  border-radius: 20px;
+  text-align: center;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+}
 
-  res.json({
-    num: num,
-    left: numbers.length
-  });
-});
+/* Katta raqam */
+#result {
+  font-size: 100px;
+  font-weight: bold;
+  margin: 20px 0;
+  transition: 0.3s;
+}
 
-// FRONTEND
-app.get("/", (req, res) => {
-  res.send(`
-    <!DOCTYPE html>
-    <html>
-    <head>
-      <title>Random 1-4</title>
-    </head>
-    <body style="display:flex;flex-direction:column;justify-content:center;align-items:center;height:100vh;font-family:sans-serif;">
-      
-      <h1 id="number" style="font-size:120px;">?</h1>
-      <p id="left" style="font-size:20px;">Qolgan: 24</p>
-      
-      <button onclick="getNumber()" style="font-size:30px;padding:10px 20px;cursor:pointer;">
-        Random olish
-      </button>
+/* Qolgan */
+#count {
+  margin-bottom: 20px;
+  font-size: 18px;
+  opacity: 0.8;
+}
 
-      <script>
-        async function getNumber() {
-          let res = await fetch('/get-number');
-          let data = await res.json();
+/* Tugma */
+button {
+  padding: 15px 40px;
+  font-size: 18px;
+  border: none;
+  border-radius: 30px;
+  background: linear-gradient(45deg, #ff7a18, #ffb347);
+  color: white;
+  cursor: pointer;
+  transition: 0.3s;
+}
 
-          document.getElementById('number').innerText = data.num;
-          document.getElementById('left').innerText = "Qolgan: " + data.left;
-        }
-      </script>
+button:hover {
+  transform: scale(1.1);
+}
 
-    </body>
-    </html>
-  `);
-});
+/* Animatsiya */
+.animate {
+  transform: scale(1.3);
+  color: #ffd700;
+}
+</style>
 
-// PORT
-const PORT = process.env.PORT || 3000;
-app.listen(PORT, () => {
-  console.log("Server started");
-});
+</head>
+<body>
+
+<div class="container">
+  <h1 id="result">Baslaw</h1>
+  <div id="count">Qalǵan: 24</div>
+  <button onclick="getNumber()">Random alıw</button>
+</div>
+
+<script>
+let count = 24;
+
+async function getNumber() {
+  const res = await fetch('/get-number');
+  const text = await res.text();
+
+  const result = document.getElementById('result');
+  result.innerText = text;
+
+  // animatsiya
+  result.classList.add("animate");
+  setTimeout(() => result.classList.remove("animate"), 300);
+
+  if (text !== "Tamamlandi") {
+    count--;
+    document.getElementById('count').innerText = "Qalǵan: " + count;
+  } else {
+    document.getElementById('count').innerText = "Bári tamamlandı!";
+  }
+}
+</script>
+
+</body>
+</html>
