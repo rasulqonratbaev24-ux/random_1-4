@@ -108,3 +108,80 @@ app.get("/get-number", (req, res) => {
 });
 
 app.listen(3000, () => console.log("Server ishladi"));
+res.send(`
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Random 1-4</title>
+
+<style>
+body {
+  margin: 0;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: radial-gradient(circle at center, #0f172a, #020617);
+  font-family: Arial, sans-serif;
+}
+
+/* CARD */
+.box {
+  text-align: center;
+  padding: 60px 40px;
+  border-radius: 25px;
+  background: rgba(255,255,255,0.05);
+  backdrop-filter: blur(15px);
+  box-shadow: 0 0 40px rgba(0,0,0,0.6);
+}
+
+/* NUMBER */
+.num {
+  font-size: 120px;   /* 🔥 KATTALASHTIRILDI */
+  font-weight: bold;
+  background: linear-gradient(45deg, #22d3ee, #e879f9);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  margin-bottom: 20px;
+}
+
+/* TEXT */
+.left {
+  color: #ccc;
+  margin-bottom: 25px;
+  font-size: 18px;
+}
+
+/* BUTTON */
+button {
+  padding: 18px 45px;
+  font-size: 20px;
+  border: none;
+  border-radius: 15px;
+  cursor: pointer;
+  background: linear-gradient(45deg, #22d3ee, #e879f9);
+  color: white;
+  box-shadow: 0 0 25px rgba(168,85,247,0.7);
+  transition: 0.2s;
+}
+
+button:hover {
+  transform: scale(1.1);
+}
+</style>
+</head>
+
+<body>
+
+<div class="box">
+  <div class="num">${num || "Tamamlandı"}</div>
+  <div class="left">Qalǵan: ${numbers.length}</div>
+  <form action="/get-number">
+    <button>Random alıw</button>
+  </form>
+</div>
+
+</body>
+</html>
+`);
