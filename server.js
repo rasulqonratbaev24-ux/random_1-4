@@ -125,7 +125,6 @@ body {
   background: radial-gradient(circle at center, #0f172a, #020617);
   font-family: Arial, sans-serif;
 }
-
 /* CARD */
 .box {
   text-align: center;
