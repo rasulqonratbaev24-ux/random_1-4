@@ -36,14 +36,14 @@ app.get("/get-number", (req, res) => {
 
   .box {
     text-align: center;
-    padding: 60px;
-    border-radius: 25px;
+    padding: 90px;
+    border-radius: 35px;
     background: rgba(255,255,255,0.05);
     box-shadow: 0 0 40px rgba(0,0,0,0.6);
   }
 
   .num {
-    font-size: 120px;
+    font-size: 180px;
     font-weight: bold;
     background: linear-gradient(45deg, #22d3ee, #e879f9);
     -webkit-background-clip: text;
@@ -56,8 +56,8 @@ app.get("/get-number", (req, res) => {
   }
 
   button {
-    padding: 18px 40px;
-    font-size: 20px;
+    padding: 22px 60px;
+    font-size: 24px;
     border: none;
     border-radius: 15px;
     background: linear-gradient(45deg, #22d3ee, #e879f9);
